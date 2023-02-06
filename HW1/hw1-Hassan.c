@@ -17,10 +17,10 @@
 #define MAX_NAME_LEN 20 // maximum length of a month name
 #define MAX_FILE_NAME_LEN 30 // maximum length of the file name
 
-// array of month names, used to display the month names in the output
-char month_names[MONTHS][MAX_NAME_LEN] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
 int main() {
+    // array of month names, used to display the month names in the output
+    char month_names[MONTHS][MAX_NAME_LEN] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     int years, year, i, j;
     // 2D array to store the temperatures for each year and month
     float temperatures[MAX_FILE_NAME_LEN][MONTHS];
@@ -42,6 +42,11 @@ int main() {
         printf("Error opening file\n"); // print an error message if the file could not be opened
         return 1;
     }
+    
+    // print year, average, coldest month and hotest month heading
+    printf("\n");
+    printf(" %s    %s    %s   %s \n", "Year", "Average", "Coldest Month", "Hotest Month");
+    printf(" %s    %s    %s   %s \n", "====", "=======", "=============", "============");
 
     fscanf(file, "%d", &years); // read the number of years from the file
     for (i = 0; i < years; i++) {
@@ -69,7 +74,7 @@ int main() {
             }
         }
         // print the year, average temperature, coldest month and its temperature, and hottest month and its temperature
-        printf(" %d    %.1f    %s (% .1f)    %s (% .1f)\n", year, year_average, month_names[coldest_month], temperatures[i][coldest_month], month_names[hottest_month], temperatures[i][hottest_month]);
+        printf(" %d    %.1f\t    %s(% .1f)\t    %s (% .1f)\n", year, year_average, month_names[coldest_month], temperatures[i][coldest_month], month_names[hottest_month], temperatures[i][hottest_month]);
     }
     // print the header for the average temperature of each month
     printf("\nAverage temperature\n");
@@ -77,11 +82,11 @@ int main() {
     for (i = 0; i < MONTHS; i++) {
         month_average[i] = month_total[i] / years;
         // print the average temperature of the month
-        printf("%s ", month_names[i]);
+        printf("%s\t", month_names[i]);
     }
     printf("\n");
     for (i = 0; i < MONTHS; i++) {
-        printf("%.1f ", month_average[i]);
+        printf("%.1f\t", month_average[i]);
     }
     printf("\n");
 
